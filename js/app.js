@@ -23,7 +23,7 @@ function generateUserProfile(data) {
   const city = data.location.city;
   //DOM elements are below
   const img = document.createElement('IMG')
-  const div = document.createElement('DIV');
+  const card = document.createElement('DIV');
   const cardImgDiv = document.createElement('DIV');
   const p = document.createElement('P');
   const cardInfoContainer = document.createElement('DIV');
@@ -35,7 +35,8 @@ function generateUserProfile(data) {
   img.src = image;
 
   //add class to appropriate div
-  div.classList.add('card')
+  img.classList.add('card-img')
+  card.classList.add('card')
   cardImgDiv.classList.add('card-img-container')
   cardInfoContainer.classList.add('card-info-container')
   name.classList.add('card-text');
@@ -48,10 +49,14 @@ function generateUserProfile(data) {
 
   //append div element
   cardImgDiv.appendChild(img)
-  div.appendChild(cardImgDiv)
-  gallery.appendChild(div)
+  card.appendChild(cardImgDiv)
+  gallery.appendChild(card)
 
-  name.
+  cardInfoContainer.appendChild(name)
+  cardInfoContainer.appendChild(emailElement)
+  cardInfoContainer.appendChild(cityElement)
+
+  card.appendChild(cardInfoContainer)
 
 
 
