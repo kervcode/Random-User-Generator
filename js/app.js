@@ -1,10 +1,5 @@
 //global variables
-const URL = 'https://randomuser.me/api/?results=12';
-let img = document.createElement('IMG')
-let div = document.createElement('DIV');
-let cardImgDiv = document.createElement('DIV');
-let p = document.createElement('P');
-let cardInfoContainer = document.createElement('DIV')
+const URL = 'https://randomuser.me/api/?nat=US&results=12';
 
 //grab gallery div from DOM
 const gallery = document.getElementById('gallery');
