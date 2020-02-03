@@ -1,9 +1,11 @@
 //global variables
 const URL = "https://randomuser.me/api/?nat=US&results=12";
 
+const body = document.querySelector("body");
+const cards = document.getElementsByClassName("card");
 //grab gallery div from DOM
 const gallery = document.getElementById("gallery");
-let card, modal;
+let userCard, modal;
 
 /**
  * Fetch functions
@@ -11,29 +13,41 @@ let card, modal;
  */
 fetch(URL)
   .then(res => res.json())
-  // .then(data => console.log(data.results));
-  .then(data => data.results.map(user => generateUserProfile(user)));
-
+  // .then(data => {
+  //   res = data.results;
+  //   console.log(res);
+  // })
+  .then(data => data.results.map(user => generateUserProfile(user)))
+  .then(data => {
+    for (card of data) {
+      console.log(card);
+    }
+  });
 /**
- * helper function
- * @param {} data
+ * HELPER FUNCTIONS
+ * @param {*} data
  */
-
 function generateUserProfile(data) {
-  card = `
+  userCard = `
   <div class="card">
       <div class="card-img-container">
           <img class="card-img" src=${data.picture.large} alt="profile picture">
       </div> 
       <div class="card-info-container">
           <h3 id="name" class="card-name cap">${data.name.first} ${data.name.last}</h3>
-          <p class="card-text">email</p>
+          <p class="card-text">${data.email}</p>
           <p class="card-text cap">${data.location.city}, ${data.location.state}</p>
       </div>    
   </div>
   `;
-  gallery.innerHTML += card;
-  return card;
+  gallery.innerHTML += userCard;
+  // console.log(userCard);
+
+  // gallery.addEventListener("click", e => {
+  //   const clicked = e.target;
+  //   console.log(clicked);
+  // });
+  return userCard;
 }
 
 function createUSerModal(user) {
@@ -62,8 +76,8 @@ function createUSerModal(user) {
     </div>
   </div>
   `;
+  body.innerHTML = modal;
 }
-6;
 /**
  * generate birthday
  *
@@ -77,48 +91,19 @@ function dateOfBirth(date) {
   return `${month}/${day}/${year}`;
 }
 
-// function generateUserProfile(data) {
-//   const image = data.picture.large;
-//   const fullName = `${data.name.first} ${data.name.last}`;
-//   const email = data.email;
-//   const city = data.location.city;
-//   //DOM elements are below
-//   const img = document.createElement("IMG");
-//   const card = document.createElement("DIV");
-//   const cardImgDiv = document.createElement("DIV");
-//   const p = document.createElement("P");
-//   const cardInfoContainer = document.createElement("DIV");
-//   const name = document.createElement("H3");
-//   const emailElement = document.createElement("P");
-//   const cityElement = document.createElement("P");
-
-//   img.src = image;
-
-//   //add class to appropriate div
-//   img.classList.add("card-img");
-//   card.classList.add("card");
-//   cardImgDiv.classList.add("card-img-container");
-//   cardInfoContainer.classList.add("card-info-container");
-//   name.classList.add("card-text");
-//   cityElement.classList.add("card-text");
-
-//   //assign elements
-//   name.innerHTML = fullName;
-//   emailElement.innerHTML = email;
-//   cityElement.innerHTML = city;
-
-//   //append div element
-//   cardImgDiv.appendChild(img);
-//   card.appendChild(cardImgDiv);
-//   gallery.appendChild(card);
-
-//   cardInfoContainer.appendChild(name);
-//   cardInfoContainer.appendChild(emailElement);
-//   cardInfoContainer.appendChild(cityElement);
-
-//   card.appendChild(cardInfoContainer);
-//   console.log(image);
-//   console.log(fullName);
-//   console.log(email);
-//   console.log(city);
+// function getCards(tag) {
+gallery.addEventListener("click", e => {
+  const clicked = e.target;
+  console.log(clicked);
+});
 // }
+/**
+ * click event listeners
+ */
+
+// cards.addEventListener("click", event => {
+//   let card = event.target;
+//   if (card) {
+//     console.log("clicked");
+//   } else console.log("not click");
+// });
