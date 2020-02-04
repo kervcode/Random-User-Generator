@@ -1,8 +1,29 @@
 //global variables
 const URL = "https://randomuser.me/api/?nat=US&results=12";
+const employees = [];
+
+
+fetch(URL)
+  .then(response => response.json())
+  .then(data => {
+//     console.log(data.results)
+    data.results.map(data => {
+      // console.log(data)
+      employees.push(data)
+      generateUserProfile(data)
+    })
+    // console.log(employees)
+}).then()
+
+
+
+
+
+
+
 
 const body = document.querySelector("body");
-const cards = document.getElementsByClassName("card");
+// const cards = document.getElementsByClassName("card");
 //grab gallery div from DOM
 const gallery = document.getElementById("gallery");
 let userCard, modal;
@@ -11,18 +32,14 @@ let userCard, modal;
  * Fetch functions
  * @param {url}
  */
-fetch(URL)
-  .then(res => res.json())
-  // .then(data => {
-  //   res = data.results;
-  //   console.log(res);
-  // })
-  .then(data => data.results.map(user => generateUserProfile(user)))
-  .then(data => {
-    for (card of data) {
-      console.log(card);
-    }
-  });
+// fetch(URL)
+//   .then(res => res.json())
+//   .then(data => data.results.map(user => generateUserProfile(user)))
+//   .then(data => {
+//     for (card of data) {
+//       // console.log(card);
+//     }
+//   });
 /**
  * HELPER FUNCTIONS
  * @param {*} data
@@ -71,39 +88,33 @@ function createUSerModal(user) {
             ${user.location.city}, 
             ${user.location.state} 
             ${user.location.postcode}</p>
-            <p class="modal-text">Birthday: ${dateOfBith(user)}</p>
+            <p class="modal-text">Birthday: ${new Date(user.dob.date).getMonth()}/${new Date(user.dob.date).getDay()}/${new Date(user.dob.date).getFullYear()}</p>
       </div>
     </div>
   </div>
   `;
   body.innerHTML = modal;
 }
-/**
- * generate birthday
- *
- */
-function dateOfBirth(date) {
-  const d = new Date(date.dob.date);
-  const month = d.getMonth();
-  const day = d.getDate();
-  const year = d.getFullYear();
 
-  return `${month}/${day}/${year}`;
-}
 
-// function getCards(tag) {
 gallery.addEventListener("click", e => {
-  const clicked = e.target;
-  console.log(clicked);
+  const cards = document.getElementsByClassName("card");
+  [...cards].forEach((card) => {
+    if (event.composedPath().includes(card)) {
+      const cardIndex = [...cards].indexOf(card);
+      createUSerModal(employees[cardIndex]);
+    }
+  });
 });
-// }
-/**
- * click event listeners
- */
 
-// cards.addEventListener("click", event => {
-//   let card = event.target;
-//   if (card) {
-//     console.log("clicked");
-//   } else console.log("not click");
-// });
+
+  const modalBox = document.getElementsByClassName('modal-close-btn');
+  gallery.addEventListener('click', e => {
+    let clicked = e.target.classList;
+    // if(clicked.)
+    console.log(clicked)
+  })
+
+
+
+
