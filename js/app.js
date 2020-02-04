@@ -2,31 +2,23 @@
 const URL = "https://randomuser.me/api/?nat=US&results=12";
 const employees = [];
 
-
 fetch(URL)
   .then(response => response.json())
   .then(data => {
-//     console.log(data.results)
+    //     console.log(data.results)
     data.results.map(data => {
       // console.log(data)
-      employees.push(data)
-      generateUserProfile(data)
-    })
+      employees.push(data);
+      generateUserProfile(data);
+    });
     // console.log(employees)
-}).then()
-
-
-
-
-
-
-
+  });
 
 const body = document.querySelector("body");
 // const cards = document.getElementsByClassName("card");
 //grab gallery div from DOM
 const gallery = document.getElementById("gallery");
-let userCard, modal;
+let userCard;
 
 /**
  * Fetch functions
@@ -88,7 +80,11 @@ function createUSerModal(user) {
             ${user.location.city}, 
             ${user.location.state} 
             ${user.location.postcode}</p>
-            <p class="modal-text">Birthday: ${new Date(user.dob.date).getMonth()}/${new Date(user.dob.date).getDay()}/${new Date(user.dob.date).getFullYear()}</p>
+            <p class="modal-text">Birthday: ${new Date(
+              user.dob.date
+            ).getMonth()}/${new Date(user.dob.date).getDay()}/${new Date(
+    user.dob.date
+  ).getFullYear()}</p>
       </div>
     </div>
   </div>
@@ -96,10 +92,9 @@ function createUSerModal(user) {
   body.innerHTML = modal;
 }
 
-
 gallery.addEventListener("click", e => {
   const cards = document.getElementsByClassName("card");
-  [...cards].forEach((card) => {
+  [...cards].forEach(card => {
     if (event.composedPath().includes(card)) {
       const cardIndex = [...cards].indexOf(card);
       createUSerModal(employees[cardIndex]);
@@ -107,14 +102,13 @@ gallery.addEventListener("click", e => {
   });
 });
 
-
-  const modalBox = document.getElementsByClassName('modal-close-btn');
-  gallery.addEventListener('click', e => {
-    let clicked = e.target.classList;
-    // if(clicked.)
-    console.log(clicked)
-  })
-
-
-
-
+body.addEventListener("click", e => {
+  const button = document.querySelector("strong");
+  const modal = document.querySelector(".modal");
+  if (e.target === button) {
+    console.log(button);
+    console.log(modal);
+    modal.style.visibility = "hidden";
+    body.innerHTML = userCard;
+  }
+});
