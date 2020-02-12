@@ -1,6 +1,12 @@
 //global variables
 const URL = "https://randomuser.me/api/?nat=US&results=12";
 const employees = [];
+let body = document.querySelector("body");
+let modal = document.createElement('div');
+    modal.classList.add('modal-container');
+
+//load background image
+document.body.style.backgroundImage = "url('images/jasonLeung.jpg')"
 
 fetch(URL)
   .then(response => response.json())
@@ -14,7 +20,7 @@ fetch(URL)
     // console.log(employees)
   });
 
-const body = document.querySelector("body");
+// const body = document.querySelector("body");
 // const cards = document.getElementsByClassName("card");
 //grab gallery div from DOM
 const gallery = document.getElementById("gallery");
@@ -60,8 +66,7 @@ function generateUserProfile(data) {
 }
 
 function createUSerModal(user) {
-  modal = `
-  <div class="modal-container">
+  let userModal = `
     <div class="modal">
       <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
       <div class="modal-info-container">
@@ -89,7 +94,8 @@ function createUSerModal(user) {
     </div>
   </div>
   `;
-  body.innerHTML = modal;
+  modal.appendChild(userModal)
+  body.appendChild(modal);
 }
 
 gallery.addEventListener("click", e => {
@@ -102,13 +108,11 @@ gallery.addEventListener("click", e => {
   });
 });
 
-body.addEventListener("click", e => {
-  const button = document.querySelector("strong");
-  const modal = document.querySelector(".modal");
-  if (e.target === button) {
-    console.log(button);
-    console.log(modal);
-    modal.style.visibility = "hidden";
-    body.innerHTML = userCard;
-  }
-});
+// body.addEventListener("click", e => {
+//   if (e.target === button) {
+//     console.log(button);
+//     console.log(modal);
+//     modal.style.visibility = "hidden";
+//     body.innerHTML = userCard;
+//   }
+// });
