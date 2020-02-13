@@ -2,8 +2,10 @@
 const URL = "https://randomuser.me/api/?nat=US&results=12";
 const employees = [];
 let body = document.querySelector("body");
-let modal = document.createElement("div");
-modal.classList.add("modal-container");
+const modal = document.createElement("DIV");
+// let button;
+// let modal = document.createElement("div");
+// modal.classList.add("modal-container");
 //grab gallery div from DOM
 const gallery = document.getElementById("gallery");
 let userCard, userModal;
@@ -49,8 +51,9 @@ function generateUserProfile(data) {
 }
 
 function createUSerModal(user) {
+  modal.classList.add("modal-container");
   // console.log(user);
-  userModal = `
+  modal.innerHTML = `
     <div class="modal">
       <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
       <div class="modal-info-container">
@@ -75,39 +78,28 @@ function createUSerModal(user) {
   ).getDay()}/${new Date(user.dob.date).getFullYear()}</p>
       </div>
     </div>
-  </div>
   `;
-  body.insertBefore(userModal, gallery);
+  body.insertBefore(modal, gallery);
   // body.appendChild(userModal);
 }
 
 gallery.addEventListener("click", e => {
   const cards = document.getElementsByClassName("card");
-  console.log(cards);
-  cards.array.forEach(element => {
-    console.log(element);
+  [...cards].forEach(card => {
+    if (event.composedPath().includes(card)) {
+      const cardIndex = [...cards].indexOf(card);
+      createUSerModal(employees[cardIndex]);
+      // console.log(employees[cardIndex]);
+    }
   });
-  // for (let card of cards) {
-  //   console.log(card);
-  // }
 });
 
-// gallery.addEventListener("click", e => {
-//   const cards = document.getElementsByClassName("card");
-//   [...cards].forEach(card => {
-//     if (event.composedPath().includes(card)) {
-//       const cardIndex = [...cards].indexOf(card);
-//       createUSerModal(employees[cardIndex]);
-//       console.log(employees[cardIndex]);
-//     }
-//   });
-// });
+modal.addEventListener("click", e => {
+  const closeBtn = document.getElementById("modal-close-btn");
+  const btnTarget = e.target;
+  console.log(closeBtn.childNodes);
 
-// body.addEventListener("click", e => {
-//   if (e.target === button) {
-//     console.log(button);
-//     console.log(modal);
-//     modal.style.visibility = "hidden";
-//     body.innerHTML = userCard;
-//   }
-// });
+  if (btnTarget === closeBtn.childNodes[0]) {
+    modal.style.display = "none";
+  }
+});
