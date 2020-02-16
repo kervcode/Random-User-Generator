@@ -99,9 +99,15 @@ gallery.addEventListener("click", e => {
 modal.addEventListener("click", e => {
   const closeBtn = document.getElementById("modal-close-btn");
   const btnTarget = e.target;
-  console.log(closeBtn.childNodes);
+  
+  const modalCtn = document.getElementsByClassName('modal-container');
+  const parentModal = document.getElementsByTagName('body');
+  // console.log(closeBtn.childNodes);
 
   if (btnTarget === closeBtn.childNodes[0]) {
-    modal.style.display = "none";
-  }
+    console.log(modalCtn)
+    console.log(parentModal)
+    parentModal.removeChild(modalCtn)
+    // modal.style.display = "none";
+  } 
 });
