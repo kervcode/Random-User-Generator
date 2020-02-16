@@ -3,9 +3,7 @@ const URL = "https://randomuser.me/api/?nat=US&results=12";
 const employees = [];
 let body = document.querySelector("body");
 const modal = document.createElement("DIV");
-// let button;
-// let modal = document.createElement("div");
-// modal.classList.add("modal-container");
+
 //grab gallery div from DOM
 const gallery = document.getElementById("gallery");
 let userCard, userModal;
@@ -15,7 +13,7 @@ document.body.style.backgroundImage = "url('images/jasonLeung.jpg')";
 
 /**
  * Fetch functions
- * @param {url}
+ * @param {url} where the data is coming from
  */
 fetch(URL)
   .then(response => response.json())
@@ -24,6 +22,7 @@ fetch(URL)
     data.results.map(data => {
       // console.log(data)
       employees.push(data);
+      // function call to create the cards on the page
       generateUserProfile(data);
     });
     // console.log(employees)
@@ -31,7 +30,7 @@ fetch(URL)
 
 /**
  * HELPER FUNCTIONS
- * @param {*} data
+ * @param {data} is used to create the function for the card div.
  */
 function generateUserProfile(data) {
   userCard = `
@@ -50,9 +49,12 @@ function generateUserProfile(data) {
   return userCard;
 }
 
+/**
+ * createUserModal functions to view employee information for each card.
+ * @param {user}
+ */
 function createUSerModal(user) {
   modal.classList.add("modal-container");
-  // console.log(user);
   modal.innerHTML = `
     <div class="modal">
       <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
