@@ -85,6 +85,7 @@ function createUSerModal(user) {
   // body.appendChild(userModal);
 }
 
+//adding event listener to the cards.
 gallery.addEventListener("click", e => {
   const cards = document.getElementsByClassName("card");
   [...cards].forEach(card => {
@@ -96,18 +97,13 @@ gallery.addEventListener("click", e => {
   });
 });
 
+//close modal
 modal.addEventListener("click", e => {
   const closeBtn = document.getElementById("modal-close-btn");
   const btnTarget = e.target;
-  
-  const modalCtn = document.getElementsByClassName('modal-container');
-  const parentModal = document.getElementsByTagName('body');
-  // console.log(closeBtn.childNodes);
+  const modalCtn = document.getElementsByClassName("modal-container");
 
   if (btnTarget === closeBtn.childNodes[0]) {
-    console.log(modalCtn)
-    console.log(parentModal)
-    parentModal.removeChild(modalCtn)
-    // modal.style.display = "none";
-  } 
+    modalCtn[0].remove();
+  }
 });
